@@ -10,6 +10,9 @@ export const deleteUser = async (req: NextApiRequest, res: NextApiResponse) => {
         return res.status(400).json({ error: "Invalid user id" })
     }
     const numIdx = parseInt(idx, 10)
+    if (isNaN(numIdx)) {
+        res.status(400).json({ error: "Invalid user id" })
+    }
     const findUserPosts = await prisma.user.findUnique({
         where: {
             idx: numIdx,
